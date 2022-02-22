@@ -22,7 +22,7 @@ class _VideoCallV2ExampleState extends State<VideoCallV2Example> {
   RTCVideoRenderer _localRenderer = new RTCVideoRenderer();
   RTCVideoRenderer _remoteRenderer = new RTCVideoRenderer();
   MediaStream myStream;
-  Registros registro = Registros("VideoCallV2Example");
+  //Registros registro = Registros("VideoCallV2Example");
 
   var servers = [
     'wss://master-janus.onemandev.tech/websocket',
@@ -47,7 +47,15 @@ class _VideoCallV2ExampleState extends State<VideoCallV2Example> {
   makeCall() async {
     await _localRenderer.initialize();
     _localRenderer.srcObject = await publishVideo.initializeMediaDevices(
-        mediaConstraints: {"audio": true, "video": true});
+        mediaConstraints: {
+      "audio": true,
+      "video": {
+        "mandatory": {
+          "minFrameRate": '60',
+        },
+        "facingMode": "user",
+        "optional": [],
+      }});
     RTCSessionDescription offerToCall = await publishVideo.createOffer();
     var body = {"request": "call", "username": nameController.text};
     publishVideo.send(
@@ -58,7 +66,7 @@ class _VideoCallV2ExampleState extends State<VideoCallV2Example> {
   }
 
   logDialog() async {
-    String log = await registro.readLog();
+    //String log = await registro.readLog();
     showDialog(
         context: context,
         barrierDismissible: false,
@@ -68,7 +76,7 @@ class _VideoCallV2ExampleState extends State<VideoCallV2Example> {
             content: SingleChildScrollView(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
-                children: [Text(log)],
+               // children: [Text(log)],
               ),
             ),
           );
@@ -161,8 +169,8 @@ class _VideoCallV2ExampleState extends State<VideoCallV2Example> {
       var pluginData = even.event['plugindata'];
       if (pluginData != null) {
         var data = pluginData['data'];
-        await registro.writeLog(
-            DateTime.now().toIso8601String() + ": " + data.toString());
+       // await registro.writeLog(
+        //    DateTime.now().toIso8601String() + ": " + data.toString());
         if (data != null) {
           var result = data["result"];
           if (result != null) {
@@ -344,7 +352,7 @@ class _VideoCallV2ExampleState extends State<VideoCallV2Example> {
                 icon: Icon(Icons.report),
                 color: Colors.black,
                 onPressed: () {
-                  logDialog();
+                 // logDialog();
                 }),
             padding: EdgeInsets.all(25),
           ),
@@ -376,7 +384,7 @@ class _VideoCallV2ExampleState extends State<VideoCallV2Example> {
                     icon: Icon(Icons.share),
                     color: Colors.white,
                     onPressed: () async {
-                      registro.onShare(context);
+                     // registro.onShare(context);
                     })),
             padding: EdgeInsets.all(10),
           ),

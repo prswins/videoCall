@@ -26,7 +26,15 @@
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
-	<key>UISupportedInterfaceOrientations</key>
+	<key>NSCameraUsageDescription</key>
+	<string>Usage camera </string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Usage mic</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Save screenshot</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Get screenshot</string>
+	<key>UISupportedInterfaceOrientations</key> 
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
