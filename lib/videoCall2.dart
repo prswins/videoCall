@@ -150,11 +150,20 @@ class _VideoCallV2ExampleState extends State<VideoCallV2Example> {
 
   initJanusClient() async {
     setState(() {
-      rest = RestJanusTransport(url: servermap['janus_rest']);
-      ws = WebSocketJanusTransport(url: servermap['janus_ws']);
+      rest = RestJanusTransport(url: 
+     // servermap['janus_rest']
+     "https://call.aloushop.com.br:8089/janus"
+      );
+      ws = WebSocketJanusTransport(url: 
+     // servermap['janus_ws']
+     'wss://call.aloushop.com.br:8989/'
+      );
       j = JanusClient(transport: ws, iceServers: [
+        //RTCIceServer( url: "stun:stun.voip.eutelia.it:3478", username: "", credential: "")
         RTCIceServer(
-            url: "stun:stun.voip.eutelia.it:3478", username: "", credential: "")
+              url: "turn:turn.aloushop.com.br:3478",
+              username: "turn",
+              credential: "LLvvMED192vvLL")
       ]);
     });
     session = await j.createSession();
